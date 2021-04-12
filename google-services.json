@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "262016334532",
+    "project_id": "studentpro-f58b7",
+    "storage_bucket": "studentpro-f58b7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:262016334532:android:f0f6d927a3d612ab34a791",
+        "android_client_info": {
+          "package_name": "com.android.application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "262016334532-v316lvk51guqsko6kqhght0ssfrpo4kq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEdCcE83IPoAzBrcUTbr6CQ8C0GluH5ww"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "262016334532-v316lvk51guqsko6kqhght0ssfrpo4kq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
