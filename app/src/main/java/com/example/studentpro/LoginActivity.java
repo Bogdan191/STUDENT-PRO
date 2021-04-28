@@ -1,5 +1,6 @@
 package com.example.studentpro;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -10,7 +11,11 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -79,6 +84,28 @@ public class LoginActivity  extends AppCompatActivity{
 
         String email = emailText.getText().toString();
         String password = passwordText.getText().toString();
+
+        Utilities alertMessage = new Utilities();
+        if(email.length() == 0 || password.length() == 0){
+            alertMessage.AlertMessage(LoginActivity.this, "Login", "Completati amblele campuri!");
+        }
+        else {
+            //autentificare user
+
+            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if(task.isSuccessful()){
+                        Toast.makeText(LoginActivity.this, "Autentificare cu succes!", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(LoginActivity.this, HomePageActivity.class));
+                    }else {
+                        alertMessage.AlertMessage(LoginActivity.this, "Login", "Autentificare esuata! " +
+                                "Email-ul si/sau parola incorecte. Apasati ok pentru a reincerca");
+                    }
+                }
+            });
+        }
+
 
 
     }
