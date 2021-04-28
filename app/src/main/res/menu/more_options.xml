@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+     >
+
+
+    <item android:id = "@+id/option1"
+
+        android:title="Intrebari/raspunsuri" />
+
+    <item android:id = "@+id/option2"
+        android:title= "Obiecte pierdute" />
+
+    <item
+        android:id="@+id/option3"
+        android:title="Secreatriat" />
+    <item
+        android:id="@+id/option4"
+
+        android:title="Setari"
+        android:visible="false" />
+
+    <item
+        android:id="@+id/option5"
+        android:icon="@color/neutralDark"
+
+        android:title="Logout">
+    </item>
+</menu>

@@ -28,6 +28,13 @@
         <activity android:name=".HomePageActivity">
 
         </activity>
+        <activity android:name=".MyPageActivity">
+
+        </activity>
+
+        <activity android:name=".MyClassActivity">
+
+        </activity>
 
     </application>
 
