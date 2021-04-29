@@ -2,16 +2,27 @@ package com.example.studentpro;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class HomePageActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
@@ -19,6 +30,8 @@ public class HomePageActivity extends AppCompatActivity implements PopupMenu.OnM
     Button mButtonMyPage;
     Button mButtonMyClass;
     Button mButtonMoreOptions;
+    Button mButtonDBProbe;
+
     FirebaseAuth firebaseAuth;
     @Override
     public void onCreate(Bundle savedInstance) {
@@ -33,25 +46,16 @@ public class HomePageActivity extends AppCompatActivity implements PopupMenu.OnM
 
         }
         //setam butoanele
-        mButtonLogOut = findViewById(R.id.buttonLogOutHomePage);
         mButtonMyPage = findViewById(R.id.buttonMyPage);
         mButtonMyClass = findViewById(R.id.buttonMyClass);
         mButtonMoreOptions = findViewById(R.id.buttonMoreOptionsHomePage);
+
+        mButtonDBProbe = findViewById(R.id.buttonDatabaseProbe);
+
         //obtinem instanta pentru baza de date de autentificare
         firebaseAuth = FirebaseAuth.getInstance();
 
-        mButtonLogOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                ///Obtine user-ul curent logat
-                FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-                if(currentUser != null) { // inseamna ca delogarea are sens
-                    firebaseAuth.signOut();
-                    startActivity(new Intent(HomePageActivity.this, LoginActivity.class));
-                }
-            }
-        });
 
         mButtonMyPage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +71,46 @@ public class HomePageActivity extends AppCompatActivity implements PopupMenu.OnM
             public void onClick(View v) {
                 ///Muta user-ul pe pagina cu date despre grupa lui
                 startActivity(new Intent(HomePageActivity.this, MyClassActivity.class));
+            }
+        });
+
+        mButtonDBProbe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(HomePageActivity.this, "Se incearca sa se scrie in DB!", Toast.LENGTH_LONG).show();
+                // Scrie un mesaj in baza de date
+
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                if(db == null) {
+                    Toast.makeText(HomePageActivity.this, "Nu s-a gasit instanta bazei de date!", Toast.LENGTH_LONG).show();
+
+                }else {
+                    Toast.makeText(HomePageActivity.this, "S-a gasit instanta bazei de date!", Toast.LENGTH_LONG).show();
+
+                }
+                Map<String, Object> user = new HashMap<>();
+                user.put("Nume si prenume", "Pintilie Bogdan-Ioan");
+                user.put("email", "bogdanpinitlie00@yahoo.com");
+                user.put("grupa", 342);
+
+                //Adauga noul document la baza de date cu un ID generat
+                db.collection("users")
+                        .add(user)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                Log.d("users", "DocumentSnapshot added with ID: " + documentReference.getId());
+
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w("users", "Error adding document", e);
+                            }
+                        });
+
+
             }
         });
 

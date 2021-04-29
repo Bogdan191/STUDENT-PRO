@@ -76,7 +76,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"/>
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/buttonDatabaseProbe"
+                android:layout_width="267dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="Proba db" />
+        </LinearLayout>
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
